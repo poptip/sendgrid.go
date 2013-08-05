@@ -6,14 +6,14 @@ import (
 	"net/url"
 )
 
-// appendArray adds a list in url format.
+// addArray adds a list in url format.
 func addArray(v *url.Values, name string, list []string) {
 	for _, value := range list {
 		v.Add(name, value)
 	}
 }
 
-// appendMap adds a key value pairing map to the uri
+// addMap adds a key value pairing map to the uri
 func addMap(v *url.Values, name string, data map[string]string) error {
 	if len(data) == 0 {
 		return nil
