@@ -19,7 +19,7 @@ type PostResponse struct {
 type MailArgs struct {
 	To             []string
 	ToName         []string
-	Bcc            []string
+	BCC            []string
 	Xsmtapi        map[string]string
 	Subject        string
 	Text, Html     string
@@ -95,7 +95,7 @@ func (c Client) MailSend(args MailArgs) *SendGridError {
 	c.setCredentials(&v)
 	addArray(&v, "to", args.To)
 	addArray(&v, "toname", args.ToName)
-	addArray(&v, "bcc", args.Bcc)
+	addArray(&v, "bcc", args.BCC)
 	v.Add("from", args.From)
 	v.Add("fromname", args.FromName)
 	v.Add("subject", args.Subject)
