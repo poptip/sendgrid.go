@@ -49,7 +49,7 @@ func (c Client) setCredentials(v *url.Values) {
 	v.Set("api_key", c.password)
 }
 
-func (c Client) get(u string, v url.Values) *SendGridError {
+func (c Client) get(u string, v url.Values) error {
 	resp, err := http.Get(u + v.Encode())
 	if err != nil {
 		return &SendGridError{Message: err.Error()}
@@ -57,7 +57,7 @@ func (c Client) get(u string, v url.Values) *SendGridError {
 	return c.response(resp)
 }
 
-func (c Client) post(u string, v url.Values) *SendGridError {
+func (c Client) post(u string, v url.Values) error {
 	resp, err := http.PostForm(u, v)
 	if err != nil {
 		return &SendGridError{Message: err.Error()}
@@ -65,7 +65,7 @@ func (c Client) post(u string, v url.Values) *SendGridError {
 	return c.response(resp)
 }
 
-func (c Client) response(resp *http.Response) *SendGridError {
+func (c Client) response(resp *http.Response) error {
 	defer resp.Body.Close()
 
 	// Read the JSON message from the body.
@@ -88,7 +88,7 @@ func (c Client) response(resp *http.Response) *SendGridError {
 }
 
 // MailSend will send out emal o list of given recipients.
-func (c Client) MailSend(args MailArgs) *SendGridError {
+func (c Client) MailSend(args MailArgs) error {
 	// Create the address.
 	base := c.getBase("mail.send")
 	v := url.Values{}
